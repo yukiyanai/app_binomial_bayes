@@ -41,6 +41,16 @@ shinyServer(function(input, output) {
   output$data <- renderText({
     as.character(x())
   })
+  
+  output$trials <- renderText({
+    paste("n = ",
+          as.character(length(x())))
+  })
+  
+  output$y <- renderText({
+    paste("y = ", 
+          y = as.character(sum(x())))
+  })
 
   output$prior <- renderPlot({
     y <- dbeta(theta, shape1 = input$alpha, shape2 = input$beta)

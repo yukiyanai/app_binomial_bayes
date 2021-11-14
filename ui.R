@@ -19,7 +19,7 @@ shinyUI(fluidPage(
            br()),
     column(4,
            h4("ベータ-二項分布モデル"),
-           helpText(withMathJax("$$Y \\sim \\mbox{Binomial}(\\theta)$$")),
+           helpText(withMathJax("$$Y \\sim \\mbox{Binomial}(n, \\theta)$$")),
            helpText(withMathJax("$$\\theta \\sim \\mbox{Beta}(\\alpha, \\beta)$$"))),
     column(5)
   ),
@@ -53,19 +53,24 @@ shinyUI(fluidPage(
            actionButton("update", "データを抽出してベイズ更新"),
            br(),
            br(),
+           textOutput("trials"),
+           textOutput("y"),
+           br(),
            h4("データ"),
            textOutput("data"))
   ),
   
+  
   fluidRow(
+      column(4,
+             h3("事後分布"),
+             plotOutput("posterior")),
     column(4,
            h3("事前分布"),
            plotOutput("prior")),
     column(4,
            h3("尤度"),
-           plotOutput("likelihood")),
-    column(4,
-           h3("事後分布"),
-           plotOutput("posterior"))
-    )
+           plotOutput("likelihood"))
+  )
+    
 ))
