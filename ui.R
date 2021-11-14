@@ -20,12 +20,12 @@ shinyUI(fluidPage(
     column(1),
     column(4,
            h4("ベイズルール"),
-           helpText(withMathJax("$$p(\\theta \\mid y) \\propto p(y \\mid \\theta) p(\\theta)$$"))
+           p(withMathJax("$$p(\\theta \\mid y) \\propto p(y \\mid \\theta) p(\\theta)$$"))
            ),
     column(4,
            h4("ベータ-二項分布モデル"),
-           helpText(withMathJax("$$Y \\sim \\mbox{Binomial}(n, \\theta)$$")),
-           helpText(withMathJax("$$\\theta \\sim \\mbox{Beta}(\\alpha, \\beta)$$")),
+           p(withMathJax("$$Y \\sim \\mbox{Binomial}(n, \\theta)$$")),
+           p(withMathJax("$$\\theta \\sim \\mbox{Beta}(\\alpha, \\beta)$$")),
     ),
   ),
 
