@@ -27,29 +27,29 @@ f_L <- function(theta, n, x) {
 
 shinyServer(function(input, output) {
   
-  x <- reactiveVal()
+  y <- reactiveVal()
   
   observeEvent(input$reset, {
-    x(NULL)
+    y(NULL)
   })
   
   observeEvent(input$update, {
-    new_x <- rbinom(1, size = 1, prob = input$theta)
-    x(c(x(), new_x))
+    new_y <- rbinom(1, size = 1, prob = input$theta)
+    y(c(y(), new_y))
   })
   
   output$data <- renderText({
-    as.character(x())
+    as.character(y())
   })
   
   output$trials <- renderText({
     paste("n = ",
-          as.character(length(x())))
+          as.character(length(y())))
   })
   
   output$y <- renderText({
     paste("y = ", 
-          y = as.character(sum(x())))
+          y = as.character(sum(y())))
   })
 
   output$prior <- renderPlot({
@@ -66,8 +66,8 @@ shinyServer(function(input, output) {
   output$likelihood <- renderPlot({
     L <- theta %>% 
       map(.f = f_L,
-          n = length(x()),
-          x = sum(x())) %>% 
+          n = length(y()),
+          x = sum(y())) %>% 
       unlist()
     df <- data.frame(x = theta, y = L)
     pL <- ggplot(df, aes(x = x, y = y)) +
@@ -80,8 +80,8 @@ shinyServer(function(input, output) {
   
   output$posterior <- renderPlot({
     y <- dbeta(theta, 
-               shape1 = input$alpha + sum(x()), 
-               shape2 = input$beta + length(x()) - sum(x()))
+               shape1 = input$alpha + sum(y()), 
+               shape2 = input$beta + length(y()) - sum(y()))
     p1 <- ggplot(data.frame(x = theta, y = y), 
                  aes(x = x, y = y)) +
       geom_hline(yintercept = 0, color = "gray") +
